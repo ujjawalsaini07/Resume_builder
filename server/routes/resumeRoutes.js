@@ -6,11 +6,14 @@ import {
   deleteResume,
   getPublicResumeById,
   getResumeById,
+  updateResume,
 } from "../controllers/resumeController.js";
 
 const resumeRouter = express.Router();
 
 resumeRouter.post("/create", protect, createResume);
+
+resumeRouter.put("/update", protect, updateResume);
 
 resumeRouter.delete("/delete/:resumeId", protect, deleteResume);
 
