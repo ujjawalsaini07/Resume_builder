@@ -1,5 +1,6 @@
 import express from "express";
 import protect from "../middlewares/authMiddleware.js";
+import upload from "../configs/multer.js";
 
 import {
   createResume,
@@ -13,7 +14,7 @@ const resumeRouter = express.Router();
 
 resumeRouter.post("/create", protect, createResume);
 
-resumeRouter.put("/update", protect, updateResume);
+resumeRouter.put("/update", upload.single("image"), protect, updateResume);
 
 resumeRouter.delete("/delete/:resumeId", protect, deleteResume);
 

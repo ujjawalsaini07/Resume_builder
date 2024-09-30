@@ -1,4 +1,6 @@
+import imagekit from "../configs/imageKit.js";
 import Resume from "../models/Resume.js";
+import fs from "fs";
 
 // controller for creating new resume
 // POST : /api/resumes/create
@@ -75,11 +77,14 @@ export const getPublicResumeById = async (req, res) => {
 export const updateResume = async (req, res) => {
   try {
     const userId = req.userId;
-    const { resumeId, resumeData, title } = req.body;
+    const { resumeId, resumeData, removeBackground, title } = req.body;
 
     if (!resumeId) {
       return res.status(400).json({ message: "Resume id is required" });
     }
+
+    // using multer middleware to get image file from request
+    const image = req.file;
 
     let resumeDataCopy = {};
     if (typeof resumeData === "string" && resumeData.trim()) {
@@ -94,6 +99,29 @@ export const updateResume = async (req, res) => {
 
     if (typeof title === "string") {
       resumeDataCopy.title = title.trim();
+    }
+
+    if (image) {
+      const imageBufferData = fs.createReadStream(image.path);
+      const baseImageTransformation = "w-300,h-300,fo-face,z-0.75";
+      const imageTransformation = removeBackground
+        ? `${baseImageTransformation},e-bgremove,f-png`
+        : baseImageTransformation;
+
+      const response = await imagekit.files.upload({
+        file: imageBufferData,
+        fileName: removeBackground ? "resume.png" : (image.mimetype?.includes("png") ? "resume.png" : "resume.jpg"),
+        folder: "user-resumes",
+        transformation: {
+          pre: imageTransformation,
+        },
+      });
+
+      if (!resumeDataCopy.personal_info) {
+        resumeDataCopy.personal_info = {};
+      }
+
+      resumeDataCopy.personal_info.image = response.url;
     }
 
     if (Object.keys(resumeDataCopy).length === 0) {
