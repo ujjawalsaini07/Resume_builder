@@ -1,11 +1,8 @@
 import multer from "multer";
 
-const storage = multer.diskStorage({
-
-  // we are using imagekit for image storage so we dont need to specify destination for multer
-  // it also provides us with the file buffer which we can directly upload to imagekit without saving it to disk
-
-});
+// diskStorage needs a destination/filename to actually write the file - since we
+// just forward the buffer straight to imagekit, memoryStorage is what we actually want
+const storage = multer.memoryStorage();
 
 const upload = multer({ storage });
 

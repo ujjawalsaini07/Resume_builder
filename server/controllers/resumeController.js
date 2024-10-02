@@ -1,6 +1,5 @@
 import imagekit from "../configs/imageKit.js";
 import Resume from "../models/Resume.js";
-import fs from "fs";
 
 // controller for creating new resume
 // POST : /api/resumes/create
@@ -102,14 +101,13 @@ export const updateResume = async (req, res) => {
     }
 
     if (image) {
-      const imageBufferData = fs.createReadStream(image.path);
       const baseImageTransformation = "w-300,h-300,fo-face,z-0.75";
       const imageTransformation = removeBackground
         ? `${baseImageTransformation},e-bgremove,f-png`
         : baseImageTransformation;
 
       const response = await imagekit.files.upload({
-        file: imageBufferData,
+        file: image.buffer,
         fileName: removeBackground ? "resume.png" : (image.mimetype?.includes("png") ? "resume.png" : "resume.jpg"),
         folder: "user-resumes",
         transformation: {
