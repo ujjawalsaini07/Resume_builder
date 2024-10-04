@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+
+*{
+    font-family: "Outfit", sans-serif;
+}
+
+@layer base {
+    button {
+        @apply cursor-pointer;
+    }
+    input:not([type='checkbox']){
+        @apply outline-none focus:ring border border-gray-600 focus:border-green-800 ring-green-600 rounded-md transition duration-300;
+    }
+    textarea {
+        @apply outline-none focus:ring border border-gray-600 focus:border-green-800 ring-green-600 rounded-md transition duration-300;
+    }
+}
