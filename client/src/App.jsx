@@ -1,8 +1,11 @@
+import { Route, Routes } from 'react-router-dom'
+import Home from './pages/Home.jsx'
+
 function App() {
   return (
-    <div>
-      <h1>AI Resume Builder</h1>
-    </div>
+    <Routes>
+      <Route path='/' element={<Home />} />
+    </Routes>
   )
 }
 
