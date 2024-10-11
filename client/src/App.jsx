@@ -1,14 +1,58 @@
-import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home.jsx'
-import Layout from './pages/Layout.jsx'
+import React, { useCallback, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import Layout from "./pages/Layout.jsx";
+import { useDispatch } from "react-redux";
+import api from "./configs/api.js";
+import { login, setLoading } from "./app/features/authSlice.js";
+import { Toaster } from "react-hot-toast";
 
-function App() {
+const App = () => {
+
+  const dispatch = useDispatch();//get the dispatch function from the redux store
+
+  //get user data
+  const getUserData = useCallback(async () => {
+    const token = localStorage.getItem('token');
+
+    try {
+
+      if (token) {
+        const { data } = await api.get('/api/users/data', { headers: { Authorization: `Bearer ${token}` } });
+
+        if (data.user) {
+          dispatch(login({ token, user: data.user }));
+        }
+
+        dispatch(setLoading(false));
+
+      }
+      else {
+        dispatch(setLoading(false));
+      }
+
+    }
+    catch (error) {
+      dispatch(setLoading(false));
+      console.log(error.message);
+
+    }
+
+  }, [dispatch])
+
+  useEffect(() => {
+    getUserData();
+  }, [getUserData]);
+
   return (
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/app' element={<Layout />}>
-      </Route>
-    </Routes>
+    <>
+      <Toaster />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='app' element={<Layout />}>
+        </Route>
+      </Routes>
+    </>
   )
 }
 
