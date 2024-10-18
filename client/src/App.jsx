@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Layout from "./pages/Layout.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
+import ResumeBuilder from "./pages/ResumeBuilder.jsx";
 import { useDispatch } from "react-redux";
 import api from "./configs/api.js";
 import { login, setLoading } from "./app/features/authSlice.js";
@@ -52,6 +53,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='app' element={<Layout />}>
           <Route index element={<Dashboard />} />
+          <Route path="builder/:resumeId" element={<ResumeBuilder />} />
         </Route>
       </Routes>
     </>
