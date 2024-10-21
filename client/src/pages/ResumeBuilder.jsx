@@ -288,7 +288,7 @@ const ResumeBuilder =()=>{
                   </button>
 
                   <button
-                    onClick={()=>setActiveSectionIndex((prevIndex)=>Math.min(prevIndex+1, sections.length))}
+                    onClick={()=>setActiveSectionIndex((prevIndex)=>Math.min(prevIndex+1, sections.length - 1))}
                     className="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-200 text-sm text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"
                     disabled={activeSectionIndex===sections.length-1}
                   >
