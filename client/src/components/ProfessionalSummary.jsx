@@ -19,7 +19,7 @@ const ProfessionalSummary = ({data, onChange, setResumeData})=>{
             }
 
             setIsGenerating(true);
-            const response= await api.post("/api/ai/enhance-pro-sum", {userContent : data}, {headers: {Authorization:token}} )
+            const response= await api.post("/api/ai/enhance-pro-sum", {userContent : data}, {headers: {Authorization:`Bearer ${token}`}} )
 
             setResumeData(prev=>({...prev, professional_summary: response.data.enhancedContent}));
 

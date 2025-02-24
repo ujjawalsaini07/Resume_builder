@@ -49,7 +49,7 @@ const ExperienceForm = ({data, onChange})=>{
 
         try{
 
-            const {data}= await api.post('/api/ai/enhance-job-desc', {userContent: prompt}, {headers:{Authorization: token}});
+            const {data}= await api.post('/api/ai/enhance-job-desc', {userContent: prompt}, {headers:{Authorization: `Bearer ${token}`}});
             updateExperience(index, "description", data.enhancedContent);
 
 

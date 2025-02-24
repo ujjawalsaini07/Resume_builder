@@ -26,7 +26,7 @@ const Preview =()=>{
       const isOwnerPreview = pathname.startsWith('/app/view');
 
       if(isOwnerPreview && token){
-        const {data} = await api.get(`/api/resumes/get/${resumeId}`, {headers:{Authorization: token}});
+        const {data} = await api.get(`/api/resumes/get/${resumeId}`, {headers:{Authorization: `Bearer ${token}`}});
         if(data.resume){
           setResumeData(data.resume);
           return;

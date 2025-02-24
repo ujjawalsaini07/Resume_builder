@@ -51,7 +51,7 @@ const Dashboard =()=>{
 
     try{
 
-      const {data} = await api.get('/api/users/resumes', {headers:{Authorization:token}})
+      const {data} = await api.get('/api/users/resumes', {headers:{Authorization:`Bearer ${token}`}})
       setAllResumes(data.resumes)
 
     }
@@ -68,7 +68,7 @@ const Dashboard =()=>{
     try{
 
       event.preventDefault();
-      const {data} =await api.post('/api/resumes/create',{title}, {headers:{Authorization:token}})
+      const {data} =await api.post('/api/resumes/create',{title}, {headers:{Authorization:`Bearer ${token}`}})
 
       setAllResumes((prev)=>[data.resume, ...prev])
       setTitle('');
@@ -94,7 +94,7 @@ const Dashboard =()=>{
 
     try{
       const resumeText = await pdfToTextFn(resume);
-      const {data} = await api.post('/api/ai/upload-resume',{title, resumeText}, {headers:{Authorization:token}})
+      const {data} = await api.post('/api/ai/upload-resume',{title, resumeText}, {headers:{Authorization:`Bearer ${token}`}})
 
       setTitle('');
       setResume(null);
@@ -119,7 +119,7 @@ const Dashboard =()=>{
 
     try{
       event.preventDefault()
-      const {data} = await api.put('/api/resumes/update', {resumeId: editResumeId, title}, {headers:{Authorization:token}})
+      const {data} = await api.put('/api/resumes/update', {resumeId: editResumeId, title}, {headers:{Authorization:`Bearer ${token}`}})
       setAllResumes((prev)=>prev.map((item) => item._id === editResumeId ? {...item, title: title.trim()} : item))
       setTitle('');
       setEditResumeId('');
@@ -142,7 +142,7 @@ const Dashboard =()=>{
 
     try{
 
-      const {data} = await api.delete(`/api/resumes/delete/${resumeId}`, {headers:{Authorization:token}})
+      const {data} = await api.delete(`/api/resumes/delete/${resumeId}`, {headers:{Authorization:`Bearer ${token}`}})
 
       setAllResumes((prev)=>prev.filter((item) => item._id !== resumeId))
       toast.success(data.message)

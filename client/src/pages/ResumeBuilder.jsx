@@ -87,7 +87,7 @@ const ResumeBuilder =()=>{
       try{
         const {data}= await api.get('/api/resumes/get/'+ resumeId,{
           headers:{
-            Authorization: token
+            Authorization: `Bearer ${token}`
           }
         })
 
@@ -119,7 +119,7 @@ const ResumeBuilder =()=>{
       formdata.append("resumeData", JSON.stringify({public: !resumeData.public}));
 
       const {data}= await api.put('/api/resumes/update/', formdata,{headers:{
-        Authorization: token
+        Authorization: `Bearer ${token}`
       }})
 
       setResumeData((prev)=>({...prev, public: !prev.public}));
@@ -182,7 +182,7 @@ const ResumeBuilder =()=>{
 
       const {data} = await api.put('/api/resumes/update', formdata, {
         headers:{
-          Authorization: token
+          Authorization: `Bearer ${token}`
         }
       })
 
