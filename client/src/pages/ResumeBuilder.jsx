@@ -306,7 +306,7 @@ const ResumeBuilder =()=>{
                         error: (err) => err?.message || 'Failed to save resume',
                       })
                     }}
-                    className="inline-flex items-center gap-2 bg-gradient-to-br from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 transition-all rounded-lg px-4 py-2 text-sm"
+                    className="inline-flex items-center gap-2 bg-linear-to-br from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 transition-all rounded-lg px-4 py-2 text-sm"
                   >
                     <Save className="size-4" />
                     Save Changes
@@ -327,7 +327,7 @@ const ResumeBuilder =()=>{
               <div className="mt-5">
                 <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500"
+                    className="h-full bg-linear-to-r from-green-500 to-green-600 transition-all duration-500"
                     style={{ width: `${((activeSectionIndex + 1) * 100) / sections.length}%` }}
                   ></div>
                 </div>

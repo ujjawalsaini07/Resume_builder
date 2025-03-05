@@ -166,7 +166,7 @@ const Dashboard =()=>{
       <div className="absolute -top-24 left-1/4 -z-10 size-96 rounded-full bg-green-200/40 blur-[100px]"></div>
       <div className="absolute top-40 right-0 -z-10 size-72 rounded-full bg-emerald-100/60 blur-[100px]"></div>
 
-      <div className="w-full py-2.5 font-medium text-sm text-green-800 text-center bg-gradient-to-r from-[#ABFF7E] to-[#FDFEFF] border-b border-green-200/40">
+      <div className="w-full py-2.5 font-medium text-sm text-green-800 text-center bg-linear-to-r from-[#ABFF7E] to-[#FDFEFF] border-b border-green-200/40">
         <p>
           <span className="px-3 py-1 rounded-lg text-white bg-green-600 mr-2">Tip</span>
           Keep your resume updated weekly for better interview responses.
@@ -182,7 +182,7 @@ const Dashboard =()=>{
             </div>
 
             <h1 className="text-4xl sm:text-5xl font-semibold mt-4 leading-tight max-w-3xl">
-              Welcome back, <span className="bg-gradient-to-r from-green-800 to-green-600 bg-clip-text text-transparent">{user?.name || "Creator"}</span>
+              Welcome back, <span className="bg-linear-to-r from-green-800 to-green-600 bg-clip-text text-transparent">{user?.name || "Creator"}</span>
             </h1>
 
             <p className="text-slate-600 text-base mt-4 max-w-2xl">
@@ -236,7 +236,7 @@ const Dashboard =()=>{
             onClick={()=>setShowCreateResume(true)}
             className="text-left rounded-2xl border border-dashed border-slate-300 bg-white p-6 group hover:border-green-600 hover:shadow-md transition-all"
           >
-            <div className="inline-flex p-3 rounded-xl bg-gradient-to-r from-green-500 to-green-600 text-white">
+            <div className="inline-flex p-3 rounded-xl bg-linear-to-r from-green-500 to-green-600 text-white">
               <PlusIcon className="size-5" />
             </div>
             <h3 className="text-lg font-semibold mt-4">Create a New Resume</h3>
@@ -247,7 +247,7 @@ const Dashboard =()=>{
             onClick={()=> setShowUploadResume(true)}
             className="text-left rounded-2xl border border-dashed border-slate-300 bg-white p-6 group hover:border-green-600 hover:shadow-md transition-all"
           >
-            <div className="inline-flex p-3 rounded-xl bg-gradient-to-r from-green-500 to-green-800 text-white">
+            <div className="inline-flex p-3 rounded-xl bg-linear-to-r from-green-500 to-green-800 text-white">
               <UploadCloudIcon className="size-5" />
             </div>
             <h3 className="text-lg font-semibold mt-4">Upload and Parse Existing Resume</h3>
@@ -408,10 +408,10 @@ const Dashboard =()=>{
 
                       {/* checking if the resume state variable has data if it has data then show the name of the file otherwise show the upload icon and text to upload the resume */}
                       {resume ? (
-                        <p className="text-green-700 text-slate-600 text-center break-all">{resume.name}</p>
+                        <p className="text-slate-600 text-center break-all">{resume.name}</p>
                       ):(
                         <>
-                           <UploadCloudIcon className="size-11 transition-all duration-300 p-2.5 bg-gradient-to-r from-green-500 to-green-800 text-white rounded-full text-white rounded-full"/>
+                           <UploadCloudIcon className="size-11 transition-all duration-300 p-2.5 bg-linear-to-r from-green-500 to-green-800 text-white rounded-full"/>
                           <p className="text-sm group-hover:text-green-600 transition-all duration-300">Click to upload your resume</p>
                         </>
                       )}

@@ -59,7 +59,7 @@ const Hero =()=>{
                 </nav>
 
                 {/* Mobile Menu */}
-                <div className={`fixed inset-0 z-[100] bg-black/40 text-black backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"}`} >
+                <div className={`fixed inset-0 z-100 bg-black/40 text-black backdrop-blur flex flex-col items-center justify-center text-lg gap-8 md:hidden transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"}`} >
                     <a href="/" className="text-white">Home</a>
                     <a href="#features" className="text-white">Features</a>
                     <a href="#testimonials" className="text-white">Testimonials</a>
@@ -76,11 +76,11 @@ const Hero =()=>{
                     {/* Avatars + Stars */}
                     <div className="flex items-center mt-24">
                         <div className="flex -space-x-3 pr-3">
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200" alt="user3" className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-[1]" />
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200" alt="user3" className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-1" />
                             <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200" alt="user1" className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-2" />
-                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="user2" className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-[3]" />
-                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200" alt="user3" className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-[4]" />
-                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="user5" className="size-8 rounded-full border-2 border-white hover:-translate-y-0.5 transition z-[5]" />
+                            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200" alt="user2" className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-3" />
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200" alt="user3" className="size-8 object-cover rounded-full border-2 border-white hover:-translate-y-0.5 transition z-4" />
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="user5" className="size-8 rounded-full border-2 border-white hover:-translate-y-0.5 transition z-5" />
                         </div>
 
                         <div>
@@ -96,8 +96,8 @@ const Hero =()=>{
                     </div>
 
                     {/* Headline + CTA */}
-                    <h1 className="text-5xl md:text-6xl font-semibold max-w-5xl text-center mt-4 md:leading-[70px]">
-                        Build role-ready resumes faster with <span className=" bg-gradient-to-r from-green-800 to-green-600 bg-clip-text text-transparent text-nowrap">AI Powered</span> Resume Builder
+                    <h1 className="text-5xl md:text-6xl font-semibold max-w-5xl text-center mt-4 md:leading-17.5">
+                        Build role-ready resumes faster with <span className=" bg-linear-to-r from-green-800 to-green-600 bg-clip-text text-transparent text-nowrap">AI Powered</span> Resume Builder
                     </h1>
 
                     <p className="max-w-md text-center text-base my-7">Write stronger summaries, improve experience points, and customize templates in one place so your resume is ready for every application.</p>
