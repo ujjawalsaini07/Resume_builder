@@ -383,8 +383,8 @@ JWT_SECRET=replace_with_a_long_random_string
 
 GEMINI_API_KEY=your_gemini_api_key
 # GOOGLE_API_KEY=your_gemini_api_key
-# GEMINI_MODEL=gemini-2.5-flash
-# GEMINI_FALLBACK_MODELS=gemini-flash-latest,gemini-2.5-flash-lite
+GEMINI_MODEL=gemini-3.6-flash
+# GEMINI_FALLBACK_MODELS=gemini-flash-latest,gemini-3.5-flash,gemini-3.1-flash-lite
 
 IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
 ```

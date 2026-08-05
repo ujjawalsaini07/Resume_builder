@@ -12,7 +12,7 @@ if (!apiKey) {
 const genAI = new GoogleGenerativeAI(apiKey || "");
 
 // Use a stronger default model and gracefully fall back when quota/model access differs by account.
-export const defaultModelName = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+export const defaultModelName = process.env.GEMINI_MODEL || "gemini-3.6-flash";
 
 const fallbackModelsFromEnv = (process.env.GEMINI_FALLBACK_MODELS || "")
   .split(",")
@@ -20,7 +20,7 @@ const fallbackModelsFromEnv = (process.env.GEMINI_FALLBACK_MODELS || "")
   .filter(Boolean);
 
 // Priority order: explicit model, env fallbacks, then built-in fallback models.
-const builtInFallbackModels = ["gemini-flash-latest", "gemini-2.5-flash-lite", "gemini-2.0-flash-lite"];
+const builtInFallbackModels = ["gemini-flash-latest", "gemini-3.5-flash", "gemini-3.1-flash-lite"];
 
 export const modelPriority = [
   defaultModelName,
