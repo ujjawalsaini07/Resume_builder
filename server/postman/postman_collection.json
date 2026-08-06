@@ -1,0 +1,309 @@
+{
+  "info": {
+    "name": "AI Resume Builder API",
+    "description": "Full route collection for the AI Resume Builder backend: auth, resume CRUD, and AI-assisted content endpoints.\n\nSet the `baseUrl` collection variable to your local server (http://localhost:3000) or your deployed Render URL before running requests. Running \"Register User\" or \"Login User\" automatically saves the returned JWT into the `token` variable, so protected requests in this collection work without manual copy-pasting.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "resumeId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Register User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const data = pm.response.json();",
+                  "    if (data.token) {",
+                  "        pm.collectionVariables.set('token', data.token);",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"TestPass123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/users/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "register"]
+            },
+            "description": "Creates a new user. On success, saves the returned JWT into the `token` collection variable."
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const data = pm.response.json();",
+                  "    if (data.token) {",
+                  "        pm.collectionVariables.set('token', data.token);",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"TestPass123\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/users/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "login"]
+            },
+            "description": "Logs in an existing user. On success, saves the returned JWT into the `token` collection variable."
+          }
+        },
+        {
+          "name": "Get Authenticated User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/data",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "data"]
+            },
+            "description": "Protected. Returns the logged-in user's profile (password omitted)."
+          }
+        },
+        {
+          "name": "Get Authenticated User Resumes",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/resumes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "resumes"]
+            },
+            "description": "Protected. Returns every resume owned by the logged-in user."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resumes",
+      "item": [
+        {
+          "name": "Create Resume",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const data = pm.response.json();",
+                  "    if (data.resume && data.resume._id) {",
+                  "        pm.collectionVariables.set('resumeId', data.resume._id);",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"My First Resume\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/resumes/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resumes", "create"]
+            },
+            "description": "Protected. Creates a new blank resume for the logged-in user. Saves the new resume's id into the `resumeId` collection variable."
+          }
+        },
+        {
+          "name": "Update Resume",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "resumeId", "value": "{{resumeId}}", "type": "text" },
+                {
+                  "key": "resumeData",
+                  "value": "{\"professional_summary\":\"Updated via Postman\",\"skills\":[\"JavaScript\",\"React\"]}",
+                  "type": "text"
+                },
+                { "key": "title", "value": "My First Resume (Updated)", "type": "text" },
+                { "key": "removeBackground", "value": "", "type": "text", "disabled": true },
+                { "key": "image", "type": "file", "disabled": true, "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/resumes/update",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resumes", "update"]
+            },
+            "description": "Protected. Updates title/resumeData for the given resumeId. Enable the `image` field (multipart file) to also upload/replace the profile photo via ImageKit; enable `removeBackground` with value `yes` to strip the background on upload."
+          }
+        },
+        {
+          "name": "Get Resume By Id (Owner)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/resumes/get/{{resumeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resumes", "get", "{{resumeId}}"]
+            },
+            "description": "Protected. Returns the resume only if it belongs to the logged-in user."
+          }
+        },
+        {
+          "name": "Get Public Resume By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/resumes/public/{{resumeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resumes", "public", "{{resumeId}}"]
+            },
+            "description": "Public. No auth required. Only returns the resume if its `public` flag is true."
+          }
+        },
+        {
+          "name": "Delete Resume",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/resumes/delete/{{resumeId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "resumes", "delete", "{{resumeId}}"]
+            },
+            "description": "Protected. Deletes the given resume if it belongs to the logged-in user."
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI",
+      "item": [
+        {
+          "name": "Enhance Professional Summary",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userContent\": \"I am a developer who knows React and Node.js and has worked on many projects.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ai/enhance-pro-sum",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ai", "enhance-pro-sum"]
+            },
+            "description": "Protected. Sends the given summary text to Gemini and returns a single rewritten, ATS-friendly version."
+          }
+        },
+        {
+          "name": "Enhance Job Description",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userContent\": \"Position: Software Engineer\\nCompany: Example Corp\\nCurrent description: Worked on the backend and fixed bugs.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ai/enhance-job-desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ai", "enhance-job-desc"]
+            },
+            "description": "Protected. Sends a position/company/description prompt to Gemini and returns a single rewritten, achievement-focused job description."
+          }
+        },
+        {
+          "name": "Upload Resume (AI Parse)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Imported Resume\",\n  \"resumeText\": \"Jane Doe\\njane@example.com\\nSoftware Engineer with 5 years of experience in React and Node.js...\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/ai/upload-resume",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "ai", "upload-resume"]
+            },
+            "description": "Protected. Sends raw resume text (e.g. extracted from a PDF) to Gemini, parses it into structured resume data, and creates a new resume document from it."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -13,6 +13,7 @@ This repository is organized as a monorepo with two applications:
 - [Monorepo Structure (Detailed)](#monorepo-structure-detailed)
 - [Application Flow](#application-flow)
 - [API Documentation](#api-documentation)
+- [Postman Collection](#postman-collection)
 - [Data Models](#data-models)
 - [Environment Variables](#environment-variables)
 - [Getting Started](#getting-started)
@@ -347,6 +348,11 @@ All protected resume routes accept either a raw JWT or a `Bearer `-prefixed JWT 
 - Path: `/api/ai/upload-resume`
 - Body: `{ "title": "My Resume", "resumeText": "<extracted resume text>" }`
 - Response: `{ "resumeId": "...", "message": "Resume uploaded successfully" }`
+
+## Postman Collection
+A ready-to-import Postman collection covering every route documented above (users, resumes, and AI) lives at [`server/postman/postman_collection.json`](server/postman/postman_collection.json).
+
+Import it into Postman, then set the collection's `baseUrl` variable to either `http://localhost:3000` (local) or your deployed backend URL. Running "Register User" or "Login User" automatically captures the returned JWT into the collection's `token` variable, so every protected request in the collection works without manually copying tokens around.
 
 ## Data Models
 
